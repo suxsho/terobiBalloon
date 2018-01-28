@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 //击打气球效果
 public class hitBall : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+    public GameObject boomEffect;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -16,11 +16,15 @@ public class hitBall : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {
-                Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
-                Debug.Log("Target Name: " + hit.collider.gameObject.transform.name);
+                //点击气球成功后给予提示
+                //Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
+                //Debug.Log("Target Name: " + hit.collider.gameObject.transform.name);
 
-                if(hit.collider.gameObject.transform.name == "redBall(Clone)")
+                gameConfig.scores += 1;
+
+                if (hit.collider.gameObject.transform.name == "redBall(Clone)")
                 {
+                    Instantiate(boomEffect, hit.collider.gameObject.transform.position, transform.rotation);
                     Destroy(hit.collider.gameObject);
                 }
             }
