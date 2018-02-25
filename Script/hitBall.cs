@@ -20,11 +20,17 @@ public class hitBall : MonoBehaviour {
                 //Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
                 //Debug.Log("Target Name: " + hit.collider.gameObject.transform.name);
 
-                gameConfig.scores += 1;
-
                 if (hit.collider.gameObject.transform.name == "redBall(Clone)")
                 {
+                    if (gameConfig.hp > 0)
+                        gameConfig.scores += 1;
                     Instantiate(boomEffect, hit.collider.gameObject.transform.position, transform.rotation);
+                    Destroy(hit.collider.gameObject);
+                }
+                if (hit.collider.gameObject.transform.name == "blackBall(Clone)")
+                {
+                    Instantiate(boomEffect, hit.collider.gameObject.transform.position, transform.rotation);
+                    gameConfig.hp -= 1;
                     Destroy(hit.collider.gameObject);
                 }
             }
